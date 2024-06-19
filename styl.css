@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: aqua;
+  background-image: url(background.jpg);
+}
+
+.container {
+  background-color: #774040;
+  padding: 20px;
+  border-radius: 8px;
+
+}
+
+.todo-container {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+#task-container {
+  margin-bottom: 20px;
+}
+
+#task-input {
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.todo-item {
+  list-style-type: none;
+}
+
+.todo-item input[type="checkbox"] {
+  vertical-align: middle;
+}
+
+.todo-item label {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}

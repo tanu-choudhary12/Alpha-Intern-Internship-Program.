@@ -1,63 +1,92 @@
-document.addEventListener('DOMContentLoaded', function () {
-    let calculatorDisplay = document.querySelector('.calculator-display');
-    let calculatorButtons = document.querySelectorAll('.btn');
-    let expression = '';
-  
-    calculatorButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        handleButtonPress(btn.innerText);
-      });
-    });
-  
-    window.addEventListener('keydown', function (event) {
-      const key = event.key;
-      const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '.', 'Enter', 'Backspace', 'Delete', 'c', 'C'];
-      if (allowedKeys.includes(key)) {
-        handleButtonPress(key);
-      }
-    });
-  
-    function handleButtonPress(btnValue) {
-      if (btnValue === 'C') {
-        resetCalculator();
-      } else if (btnValue === 'DEL' || btnValue === 'Backspace') {
-        deleteLastChar();
-      } else if (btnValue === '=' || btnValue === 'Enter') {
-        performCalculation();
-      } else {
-        updateDisplay(btnValue);
-      }
-    }
-  
-    function resetCalculator() {
-      calculatorDisplay.textContent = "";
-      expression = '';
-    }
-  
-    function deleteLastChar() {
-      expression = expression.slice(0, -1);
-      calculatorDisplay.textContent = expression;
-    }
-  
-    function updateDisplay(value) {
-      expression += value;
-      calculatorDisplay.textContent = expression;
-    }
-  
-    function performCalculation() {
-      if (expression === '') {
-        calculatorDisplay.textContent = 'Error';
+document.addEventListener("DOMContentLoaded", function() {
+    // Add event listeners to filter buttons
+    document.getElementById("all-tasks").addEventListener("click", showAllTasks);
+    document.getElementById("complete-tasks").addEventListener("click", showCompletedTasks);
+    document.getElementById("incomplete-tasks").addEventListener("click", showIncompleteTasks);
+});
+
+function addTask() {
+    var taskInput = document.getElementById("task-input");
+    var taskText = taskInput.value.trim();
+
+    if (taskText === "") {
+        alert("Please enter a task!");
         return;
-      }
-  
-      try {
-        let result = eval(expression);
-        result = parseFloat(result.toFixed(5));
-        calculatorDisplay.textContent = result;
-        expression = result.toString();
-      } catch (error) {
-        calculatorDisplay.textContent = 'Error';
-        expression = '';
-      }
     }
-  });
+
+    var todoItem = document.createElement("li");
+    todoItem.classList.add("todo-item");
+
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+    var label = document.createElement("label");
+    label.textContent = taskText;
+
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = function() {
+        todoItem.remove();
+        updateTaskDisplay(); 
+    };
+
+    todoItem.appendChild(checkbox);
+    todoItem.appendChild(label);
+    todoItem.appendChild(deleteButton);
+
+    var todoList = document.getElementById("todo-list");
+    todoList.appendChild(todoItem); 
+    var buttonContainer = document.querySelector(".button-container");
+    buttonContainer.parentNode.insertBefore(todoItem, buttonContainer.nextSibling);
+
+    taskInput.value = "";
+    updateTaskDisplay();
+}
+
+
+function updateTaskDisplay() {
+    var todoList = document.getElementById("todo-list");
+    var todoItems = todoList.querySelectorAll(".todo-item");
+
+    todoItems.forEach(function(item) {
+        var checkbox = item.querySelector("input[type='checkbox']");
+        var label = item.querySelector("label");
+
+        if (checkbox.checked) {
+           
+            document.getElementById("complete-tasks").appendChild(item);
+        } else {
+           
+            document.getElementById("incomplete-tasks").appendChild(item);
+        }
+    });
+}
+
+function showAllTasks() {
+    var todoItems = document.querySelectorAll(".todo-item");
+    todoItems.forEach(function(item) {
+        item.style.display = "block";
+    });
+}
+
+function showCompletedTasks() {
+    var todoItems = document.querySelectorAll(".todo-item");
+    todoItems.forEach(function(item) {
+        if (item.querySelector("input[type='checkbox']").checked) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+function showIncompleteTasks() {
+    var todoItems = document.querySelectorAll(".todo-item");
+    todoItems.forEach(function(item) {
+        if (!item.querySelector("input[type='checkbox']").checked) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
