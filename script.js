@@ -1,92 +1,49 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Add event listeners to filter buttons
-    document.getElementById("all-tasks").addEventListener("click", showAllTasks);
-    document.getElementById("complete-tasks").addEventListener("click", showCompletedTasks);
-    document.getElementById("incomplete-tasks").addEventListener("click", showIncompleteTasks);
-});
+const men_section = document.querySelector('.men');
+const women_section = document.querySelector('.women');
+const kids_section = document.querySelector('.kids');
+const home_section = document.querySelector('.homeliving');
+const beauty_section = document.querySelector('.beauty');
 
-function addTask() {
-    var taskInput = document.getElementById("task-input");
-    var taskText = taskInput.value.trim();
+const men_section_items = document.querySelector('.men-section-items');
+const women_section_items = document.querySelector('.women-section-items');
+const kids_section_items = document.querySelector('.kids-section-items');
+const home_section_items = document.querySelector('.home-section-items');
+const beauty_section_items = document.querySelector('.beauty-section-items');
 
-    if (taskText === "") {
-        alert("Please enter a task!");
-        return;
-    }
+const container_ele = document.querySelector('.container');
+var bodyele = document.getElementsByTagName("BODY");
 
-    var todoItem = document.createElement("li");
-    todoItem.classList.add("todo-item");
-
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-
-    var label = document.createElement("label");
-    label.textContent = taskText;
-
-    var deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.onclick = function() {
-        todoItem.remove();
-        updateTaskDisplay(); 
-    };
-
-    todoItem.appendChild(checkbox);
-    todoItem.appendChild(label);
-    todoItem.appendChild(deleteButton);
-
-    var todoList = document.getElementById("todo-list");
-    todoList.appendChild(todoItem); 
-    var buttonContainer = document.querySelector(".button-container");
-    buttonContainer.parentNode.insertBefore(todoItem, buttonContainer.nextSibling);
-
-    taskInput.value = "";
-    updateTaskDisplay();
+men_section.onmouseover = () => {
+    men_section_items.classList.remove('visibility');
 }
+men_section.onmouseout = () => {
+    men_section_items.classList.add('visibility');
+} 
 
-
-function updateTaskDisplay() {
-    var todoList = document.getElementById("todo-list");
-    var todoItems = todoList.querySelectorAll(".todo-item");
-
-    todoItems.forEach(function(item) {
-        var checkbox = item.querySelector("input[type='checkbox']");
-        var label = item.querySelector("label");
-
-        if (checkbox.checked) {
-           
-            document.getElementById("complete-tasks").appendChild(item);
-        } else {
-           
-            document.getElementById("incomplete-tasks").appendChild(item);
-        }
-    });
+women_section.onmouseover = () => {
+    women_section_items.classList.remove('visibility');
 }
+women_section.onmouseout = () => {
+    women_section_items.classList.add('visibility');
+} 
 
-function showAllTasks() {
-    var todoItems = document.querySelectorAll(".todo-item");
-    todoItems.forEach(function(item) {
-        item.style.display = "block";
-    });
+kids_section.onmouseover = () => {
+    kids_section_items.classList.remove('visibility');
 }
+kids_section.onmouseout = () => {
+    kids_section_items.classList.add('visibility');
+} 
 
-function showCompletedTasks() {
-    var todoItems = document.querySelectorAll(".todo-item");
-    todoItems.forEach(function(item) {
-        if (item.querySelector("input[type='checkbox']").checked) {
-            item.style.display = "block";
-        } else {
-            item.style.display = "none";
-        }
-    });
+home_section.onmouseover = () => {
+    home_section_items.classList.remove('visibility');
 }
+home_section.onmouseout = () => {
+    home_section_items.classList.add('visibility');
+} 
 
-function showIncompleteTasks() {
-    var todoItems = document.querySelectorAll(".todo-item");
-    todoItems.forEach(function(item) {
-        if (!item.querySelector("input[type='checkbox']").checked) {
-            item.style.display = "block";
-        } else {
-            item.style.display = "none";
-        }
-    });
+beauty_section.onmouseover = () => {
+    beauty_section_items.classList.remove('visibility');
+}
+beauty_section.onmouseout = () => {
+    beauty_section_items.classList.add('visibility');
 }
